@@ -1,12 +1,26 @@
-import React from "react";
+import React, { ReactElement, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PageSelection } from "../../types/pages";
-import { Page } from "layout/page";
-
+import { Page } from "../../layout/page";
+import { AidPackages } from "../../types/AidPackages";
+import { TableRows } from "./tableRows/tableRows";
 import "./home.css";
+import { AidPackageService } from "../../apis/services/AidPackageService";
 
-interface HomePageProps {}
+export function Home() {
+  const [aidPackages, setAidPackages] = useState<AidPackages>();
 
-export function Home(params: HomePageProps) {
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await AidPackageService.getAidPackages();
+      if (response.data) {
+        setAidPackages({ aidPackages: response.data });
+      }
+    };
+
+    fetchData().catch(console.error);
+  }, []);
+
   return (
     <Page selection={PageSelection.HOME}>
       <div className="pageContent">
@@ -28,30 +42,7 @@ export function Home(params: HomePageProps) {
               <th>Supplier</th>
               <th></th>
             </tr>
-            <tr>
-              <td>Aid Package 1</td>
-              <td>Partially Funded</td>
-              <td>75%</td>
-              <td>Brolin Pharmaceutical Suppliers</td>
-              <td>
-                <div className="tableButtonLayer">
-                  <button> Details </button>
-                  <button> Pledges </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Aid Package 2</td>
-              <td>Closed</td>
-              <td>100%</td>
-              <td>Maclin Pharmaceutical Suppliers</td>
-              <td>
-                <div className="tableButtonLayer">
-                  <button> Details </button>
-                  <button> Pledges </button>
-                </div>
-              </td>
-            </tr>
+            <TableRows aidPackages={aidPackages} />
           </table>
         </div>
       </div>

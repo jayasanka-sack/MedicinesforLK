@@ -18,9 +18,9 @@ export function NavBar(params: NavBarProps) {
             <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeMiterlimit="10"
+                strokeWidth="2"
                 d="M4 7h22M4 15h22M4 23h22"
               ></path>
             </svg>
@@ -29,7 +29,7 @@ export function NavBar(params: NavBarProps) {
             <div className="navbar__logo">
               <img
                 src="/assets/images/elixirLogo4.png"
-                alt="Create React App Logo"
+                alt="Elixir Logo"
                 className="themedImage--light"
               />
             </div>
